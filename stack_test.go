@@ -44,7 +44,7 @@ var (
 				{data: []float64{.1, .2, .3}},
 				{data: []string{"gophers", "are", "cute"}},
 			},
-			length: 5,
+			length:       5,
 			expectedItem: &stackItem{data: []string{"gophers", "are", "cute"}},
 		},
 	}
