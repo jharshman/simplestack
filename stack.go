@@ -1,28 +1,22 @@
 package simplestack
 
-type stackItem struct {
-	data interface{}
+type StackItem struct {
+	Data interface{}
 }
 
-type stack []*stackItem
-
-// New creates a new stack.
-func New(capacity int) *stack {
-	s := make(stack, 0, capacity)
-	return &s
-}
+type Stack []*StackItem
 
 // Push adds a value to the stack.
-func (s *stack) Push(v interface{}) {
-	item := stackItem{
-		data: v,
+func (s *Stack) Push(v interface{}) {
+	item := StackItem{
+		Data: v,
 	}
 	*s = append(*s, &item)
 }
 
 // Peek returns the value at the top of the stack
 // without removing this value.
-func (s *stack) Peek() *stackItem {
+func (s *Stack) Peek() *StackItem {
 	if len(*s) == 0 {
 		return nil
 	}
@@ -30,7 +24,7 @@ func (s *stack) Peek() *stackItem {
 }
 
 // Pop returns the value at the top of the stack and removes it.
-func (s *stack) Pop() *stackItem {
+func (s *Stack) Pop() *StackItem {
 	if len(*s) == 0 {
 		return nil
 	}

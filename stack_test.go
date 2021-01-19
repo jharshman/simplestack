@@ -10,42 +10,42 @@ const CAP = 10
 var (
 	tests = []struct {
 		name         string
-		data         []stackItem
+		Data         []StackItem
 		length       int
-		expectedItem *stackItem
+		expectedItem *StackItem
 	}{
 		{
 			name: "small stack same type",
-			data: []stackItem{
-				{data: "hello"},
-				{data: "world"},
+			Data: []StackItem{
+				{Data: "hello"},
+				{Data: "world"},
 			},
 			length:       2,
-			expectedItem: &stackItem{data: "world"},
+			expectedItem: &StackItem{Data: "world"},
 		},
 		{
 			name: "medium stack same type",
-			data: []stackItem{
-				{data: "hello"},
-				{data: "world"},
-				{data: "gophers"},
-				{data: "are"},
-				{data: "cute"},
+			Data: []StackItem{
+				{Data: "hello"},
+				{Data: "world"},
+				{Data: "gophers"},
+				{Data: "are"},
+				{Data: "cute"},
 			},
 			length:       5,
-			expectedItem: &stackItem{data: "cute"},
+			expectedItem: &StackItem{Data: "cute"},
 		},
 		{
 			name: "medium stack different types",
-			data: []stackItem{
-				{data: "hello"},
-				{data: 1},
-				{data: 1.50},
-				{data: []float64{.1, .2, .3}},
-				{data: []string{"gophers", "are", "cute"}},
+			Data: []StackItem{
+				{Data: "hello"},
+				{Data: 1},
+				{Data: 1.50},
+				{Data: []float64{.1, .2, .3}},
+				{Data: []string{"gophers", "are", "cute"}},
 			},
 			length:       5,
-			expectedItem: &stackItem{data: []string{"gophers", "are", "cute"}},
+			expectedItem: &StackItem{Data: []string{"gophers", "are", "cute"}},
 		},
 	}
 )
@@ -53,9 +53,9 @@ var (
 func TestStack_Push(t *testing.T) {
 	for _, v := range tests {
 		t.Run(v.name, func(t *testing.T) {
-			s := New(CAP)
-			for _, item := range v.data {
-				s.Push(item.data)
+			s := &Stack{}
+			for _, item := range v.Data {
+				s.Push(item.Data)
 			}
 
 			l := len(*s)
@@ -69,9 +69,9 @@ func TestStack_Push(t *testing.T) {
 func TestStack_Pop(t *testing.T) {
 	for _, v := range tests {
 		t.Run(v.name, func(t *testing.T) {
-			s := New(CAP)
-			for _, item := range v.data {
-				s.Push(item.data)
+			s := &Stack{}
+			for _, item := range v.Data {
+				s.Push(item.Data)
 			}
 
 			poppedItem := s.Pop()
@@ -91,9 +91,9 @@ func TestStack_Pop(t *testing.T) {
 func TestStack_Peek(t *testing.T) {
 	for _, v := range tests {
 		t.Run(v.name, func(t *testing.T) {
-			s := New(CAP)
-			for _, item := range v.data {
-				s.Push(item.data)
+			s := &Stack{}
+			for _, item := range v.Data {
+				s.Push(item.Data)
 			}
 
 			peekedItem := s.Peek()
@@ -105,7 +105,7 @@ func TestStack_Peek(t *testing.T) {
 }
 
 func TestStack_PopOnEmpty(t *testing.T) {
-	s := New(CAP)
+	s := &Stack{}
 	v := s.Pop()
 	if v != nil {
 		t.Errorf("expected nil, got %v\n", v)
@@ -113,7 +113,7 @@ func TestStack_PopOnEmpty(t *testing.T) {
 }
 
 func TestStack_PeekOnEmpty(t *testing.T) {
-	s := New(CAP)
+	s := &Stack{}
 	v := s.Peek()
 	if v != nil {
 		t.Errorf("expected nil, got %v\n", v)
